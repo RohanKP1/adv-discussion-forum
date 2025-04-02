@@ -1,13 +1,9 @@
-import os
-import sys
 import logging
 from sqlalchemy.orm import Session
-from datetime import datetime
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.session import get_db
-from src.rabbitmq.rmq import publish_message, consume_messages
-from src.rabbitmq.schemas import NotificationMessage
-from src.db.models import Notification, User
+from server.src.db.session import get_db
+from server.src.rabbitmq.rmq import publish_message, consume_messages
+from server.src.rabbitmq.schemas import NotificationMessage
+from server.src.db.models import Notification, User
 
 def create_notification(db: Session, user_id: int, content: str, notification_type: str, reference_id: int):
     """

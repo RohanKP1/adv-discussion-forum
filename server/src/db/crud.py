@@ -1,10 +1,6 @@
-# filepath: c:\Users\rohan_m\Documents\Month_2\ver2\src\db\crud.py
 from sqlalchemy.orm import Session
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.models import User
-from src.utils.security import hash_password
+from server.src.db.models import User
+from server.src.utils.security import hash_password
 
 def get_user_by_username(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()

@@ -2,10 +2,7 @@ from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Optional
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.core.config import settings
+from server.src.core.config import settings
 from fastapi import HTTPException, status
 
 # Security utilities for password hashing and JWT token generation

@@ -1,4 +1,3 @@
-# filepath: c:\Users\rohan_m\Documents\Month_2\ver2\src\core\config.py
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):

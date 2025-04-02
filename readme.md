@@ -17,6 +17,12 @@ This project is an implementation of a web application using FastAPI and GraphQL
    docker-compose up -d
    ```
 
+2. Create a Virtual Environment:
+   ```bash
+   python -m venv .venv
+   .venv/Scripts/activate
+   ```
+
 2. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
@@ -28,12 +34,12 @@ This project is an implementation of a web application using FastAPI and GraphQL
 
 1. Start the FastAPI server:
    ```bash
-   uvicorn client.main:app --reload
+   uvicorn server.main:app --reload
    ```
 
 2. Run the Streamlit application
    ```bash
-   streamlit run server/main.py
+   streamlit run client/app.py
    ```
 
 ## Contributing

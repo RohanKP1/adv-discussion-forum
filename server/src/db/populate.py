@@ -1,10 +1,7 @@
 from sqlalchemy.orm import Session
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.session import get_db
-from src.db.models import User, Topic, Comment, Notification, UserTopicSubscription, Tag
-from src.utils.security import hash_password
+from server.src.db.session import get_db
+from server.src.db.models import User, Topic, Comment, Notification, UserTopicSubscription, Tag
+from server.src.utils.security import hash_password
 from datetime import datetime, timezone
 
 def add_example_data(db: Session):

@@ -1,21 +1,17 @@
 from datetime import datetime, timedelta
 import heapq
 import json
-import os
-import sys
 from sqlalchemy import func
 import strawberry
 from strawberry.asgi import GraphQL
 from fastapi import HTTPException
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.graphql.schema import TopicType, UserType, CommentType, TagType, NotificationType
-from src.db.models import Topic, Comment, User, Notification
-from src.db.session import get_db
-from src.api.login import get_current_user  
-from src.utils.tries import Trie
-from src.rabbitmq.notification import create_notification, remove_notification
-from src.redis.connector import get_redis_connection
+from server.src.graphql.schema import TopicType, UserType, CommentType, TagType, NotificationType
+from server.src.db.models import Topic, Comment, User, Notification
+from server.src.db.session import get_db
+from server.src.api.login import get_current_user  
+from server.src.utils.tries import Trie
+from server.src.rabbitmq.notification import create_notification
+from server.src.redis.connector import get_redis_connection
 
 topic_trie = Trie()
 

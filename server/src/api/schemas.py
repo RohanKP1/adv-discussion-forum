@@ -1,4 +1,3 @@
-# filepath: c:\Users\rohan_m\Documents\Month_2\ver2\src\api\schemas.py
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime

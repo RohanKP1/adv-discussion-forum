@@ -1,8 +1,5 @@
 from sqlalchemy import inspect
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.session import engine
+from server.src.db.session import engine
 
 def check_tables_exist():
     inspector = inspect(engine)

@@ -1,9 +1,5 @@
 import redis
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.core.config import settings
-
+from server.src.core.config import settings
 
 def get_redis_connection():
     """

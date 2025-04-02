@@ -1,13 +1,9 @@
 import time
 import pika
-import os
-import sys
 import logging
 from contextlib import contextmanager
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.core.config import settings
-from src.rabbitmq.schemas import NotificationMessage
+from server.src.core.config import settings
+from server.src.rabbitmq.schemas import NotificationMessage
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

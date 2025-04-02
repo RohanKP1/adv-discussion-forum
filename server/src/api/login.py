@@ -2,15 +2,12 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.session import get_db
-from src.db import crud
-from src.utils.security import verify_password, create_access_token, decode_access_token
-from src.api.schemas import UserCreate, UserUpdate, UserResponse, Token
-from src.rabbitmq.rmq import publish_message
-from src.rabbitmq.schemas import NotificationMessage
+from server.src.db.session import get_db
+from server.src.db import crud
+from server.src.utils.security import verify_password, create_access_token, decode_access_token
+from server.src.api.schemas import UserCreate, UserUpdate, UserResponse, Token
+from server.src.rabbitmq.rmq import publish_message
+from server.src.rabbitmq.schemas import NotificationMessage
 
 
 app = FastAPI()

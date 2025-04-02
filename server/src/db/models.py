@@ -1,10 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from datetime import datetime
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from src.db.session import Base
+from server.src.db.session import Base
 
 class User(Base):
     __tablename__ = 'users'

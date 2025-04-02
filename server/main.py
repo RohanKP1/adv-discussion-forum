@@ -1,11 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.api.login import app as login_app
-from src.graphql.gql import app as graphql_app
-# from src.db.populate import populate_main
-# from src.rabbitmq.rmq import rmq_main
-# from src.rabbitmq.notification import example_notification_workflow
+from server.src.api.login import app as login_app
+from server.src.graphql.gql import app as graphql_app
+# from server.src.db.populate import populate_main
+# from server.src.rabbitmq.rmq import rmq_main
+# from server.src.rabbitmq.notification import example_notification_workflow
 
 app = FastAPI()
 
