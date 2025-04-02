@@ -179,7 +179,7 @@ class GraphQLClient:
         result = self.execute_query(query, variables)
         return result['data']['getCommentsByTopicId'] if result and 'data' in result else None
 
-    def get_trending_topics(self, time_window: int = 7, max_topics: int = 3) -> Optional[list]:
+    def get_trending_topics(self, time_window: int = 7, max_topics: int = 10) -> Optional[list]:
         """
         Fetch trending topics
         

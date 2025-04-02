@@ -410,7 +410,7 @@ class Mutation:
                 db.commit()  # Commit the changes to persist them in the database
                 db.refresh(comment)  # Refresh the comment to reflect the updated state
                 return comment
-            return None
+            raise HTTPException(status_code=404, detail="Comment not found or unauthorized")
         
     @strawberry.field
     def mark_notification_read(self, notification_id: int, info) -> bool:
