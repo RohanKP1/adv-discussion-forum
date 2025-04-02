@@ -1,0 +1,15 @@
+__pycache__/
+server/.pytest_cache/
+server/.vscode/
+server/src/api/__pycache__/
+server/src/core/__pycache__/
+server/src/db/__pycache__/
+server/src/graphql/__pycache__/
+server/src/rabbitmq/__pycache__/
+server/src/redis/__pycache__/
+server/src/utils/__pycache__/
+client/__pycache__/
+client/src/__pycache__/
+client/src/components/__pycache__/
+client/src/services/__pycache__/
+client/src/components/__pycache__/
