@@ -178,6 +178,30 @@ class GraphQLClient:
         variables = {"topic_id": topic_id}
         result = self.execute_query(query, variables)
         return result['data']['getCommentsByTopicId'] if result and 'data' in result else None
+    
+    def get_comments_by_user_id(self, user_id: int) -> Optional[list]:
+        """
+        Fetch comments made by a specific user.
+
+        Args:
+            user_id (int): ID of the user.
+
+        Returns:
+            list or None: List of comments or None if error.
+        """
+        query = """
+        query GetCommentsByUserId($user_id: Int!) {
+            getCommentsByUserId(userId: $user_id) {
+                id
+                content
+                createdAt
+                topicId
+            }
+        }
+        """
+        variables = {"user_id": user_id}
+        result = self.execute_query(query, variables)
+        return result['data']['getCommentsByUserId'] if result and 'data' in result else None
 
     def get_trending_topics(self, time_window: int = 7, max_topics: int = 10) -> Optional[list]:
         """

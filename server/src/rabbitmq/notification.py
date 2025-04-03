@@ -117,6 +117,19 @@ def example_notification_workflow():
     finally:
         db.close()
 
+def remove_user_notifications(db: Session, user_id: int):
+    """
+    Remove all notifications for a specific user.
+    """
+    try:
+        db.query(Notification).filter(Notification.user_id == user_id).delete()
+        db.commit()
+        logging.info(f"All notifications for user {user_id} removed successfully")
+    except Exception as e:
+        db.rollback()
+        logging.error(f"Error removing notifications for user {user_id}: {e}")
+        raise        
+
 if __name__ == "__main__":
     # Uncomment to start consuming notifications
     # start_notification_service()

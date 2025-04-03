@@ -8,7 +8,6 @@ def home_page():
     # Trending Topics Section
     st.header("Trending Topics")
     trending_topics = st.session_state.graphql_client.get_trending_topics()
-
     if trending_topics:
         for topic in trending_topics[:3]:  # Show only the first 3 trending topics
             author_name = st.session_state.graphql_client.hello(user_id=topic['userId'])
@@ -16,8 +15,12 @@ def home_page():
                 st.markdown("---")
                 st.markdown("### " + topic['title'])
                 st.markdown(f"**Description:** {topic['content']}")
-                created_at = datetime.strptime(topic['createdAt'], "%Y-%m-%dT%H:%M:%S.%f")
-                formatted_created_at = created_at.strftime("%B %d, %Y at %I:%M %p")
+                try:
+                    created_at = datetime.strptime(topic['createdAt'], "%Y-%m-%dT%H:%M:%S.%f")
+                    formatted_created_at = created_at.strftime("%B %d, %Y at %I:%M %p")
+                except ValueError:
+                    # Handle the case where the date format doesn't match
+                    formatted_created_at = topic['createdAt']    
                 st.markdown(f"**Author:** {author_name} | **Created At:** {formatted_created_at}")
 
                 # Display comments under the topic

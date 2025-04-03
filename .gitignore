@@ -13,3 +13,4 @@ client/src/__pycache__/
 client/src/components/__pycache__/
 client/src/services/__pycache__/
 client/src/components/__pycache__/
+.pytest_cache/

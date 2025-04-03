@@ -108,3 +108,21 @@ class RESTAPIClient:
         except requests.exceptions.RequestException as e:
             print(f"Failed to change password: {e}")
             return None
+
+    def delete_user(self) -> Optional[Dict[str, Any]]:
+        """
+        Delete the current user's account
+        
+        Returns:
+            Dict or None: Result of the delete operation or None if error
+        """
+        try:
+            response = requests.delete(
+                f"{self.base_url}/users/me",
+                headers=self._get_headers()
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Failed to delete user: {e}")
+            return None

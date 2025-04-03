@@ -11,16 +11,23 @@ class User(Base):
     username = Column(String, unique=True, index=True, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now)
     last_login = Column(DateTime, nullable=True)
     bio = Column(Text, nullable=True)
     avatar_url = Column(String, nullable=True)
     
-    topics = relationship(__module__ + ".Topic", back_populates="user")
-
-    comments = relationship(__module__ + ".Comment", back_populates="user")
-    notifications = relationship(__module__ + ".Notification", back_populates="user")
-    subscriptions = relationship(__module__ + ".UserTopicSubscription", back_populates="user")
+    topics = relationship(
+        "Topic", back_populates="user", cascade="all, delete-orphan"
+    )
+    comments = relationship(
+        "Comment", back_populates="user", cascade="all, delete-orphan"
+    )
+    notifications = relationship(
+        "Notification", back_populates="user", cascade="all, delete-orphan"
+    )
+    subscriptions = relationship(
+        "UserTopicSubscription", back_populates="user", cascade="all, delete-orphan"
+    )
 
 class Topic(Base):
     __tablename__ = 'topics'
@@ -30,8 +37,8 @@ class Topic(Base):
     title = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     view_count = Column(Integer, default=0)
     is_locked = Column(Boolean, default=False)
     
@@ -51,7 +58,7 @@ class Comment(Base):
     content = Column(Text, nullable=False)
     topic_id = Column(Integer, ForeignKey('topics.id'), nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, nullable=True)
     parent_id = Column(Integer, ForeignKey('comments.id'), nullable=True)
     
@@ -68,7 +75,7 @@ class Notification(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     content = Column(Text, nullable=False)
     is_read = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now)
     notification_type = Column(String, nullable=False)
     reference_id = Column(Integer, nullable=True)
     
@@ -80,7 +87,7 @@ class UserTopicSubscription(Base):
     
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     topic_id = Column(Integer, ForeignKey('topics.id'), primary_key=True)
-    subscribed_at = Column(DateTime, default=datetime.utcnow)
+    subscribed_at = Column(DateTime, default=datetime.now)
     notification_preference = Column(String, default="all")
     
     user = relationship(__module__ + ".User", back_populates="subscriptions")

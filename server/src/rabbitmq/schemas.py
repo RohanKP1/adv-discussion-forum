@@ -13,7 +13,7 @@ class NotificationMessage(BaseModel):
     notification_type: Optional[str] = None
     reference_id: Optional[int] = None
     notification_id: Optional[int] = None
-    timestamp: Optional[datetime] = Field(default_factory=datetime.utcnow)
+    timestamp: Optional[datetime] = Field(default_factory=datetime.now)
     is_read: Optional[bool] = False
 
     class Config:

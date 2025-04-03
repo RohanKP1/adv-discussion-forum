@@ -4,7 +4,6 @@ from src.services.api_client import RESTAPIClient
 
 def register_page():
     """User registration page"""
-    # Custom CSS for modern styling
 
     st.title("Create New Account")
     
@@ -22,9 +21,9 @@ def register_page():
     with reg_col1:
         if st.button("Register"):
             if password != confirm_password:
-                st.error("❌ Passwords do not match")
+                st.error("Passwords do not match")
             elif not (username and email and password):
-                st.error("❌ Please fill all fields")
+                st.error("Please fill all fields")
             else:
                 # Use REST API client for registration
                 rest_client = RESTAPIClient()
@@ -36,7 +35,7 @@ def register_page():
                     st.session_state.page = 'login'
                     st.rerun()  # Force rerun to navigate to the login page
                 else:
-                    st.error("❌ Registration failed")
+                    st.error("Registration failed")
     
     with reg_col2:
         if st.button("Back to Login"):

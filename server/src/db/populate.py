@@ -10,7 +10,7 @@ def add_example_data(db: Session):
         username="user1",
         email="user1@example.com",
         password_hash=hash_password("password1"),
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         bio="Bio of user1",
         avatar_url="http://example.com/avatar1.png"
     )
@@ -18,7 +18,7 @@ def add_example_data(db: Session):
         username="user2",
         email="user2@example.com",
         password_hash=hash_password("password2"),
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         bio="Bio of user2",
         avatar_url="http://example.com/avatar2.png"
     )
@@ -31,7 +31,7 @@ def add_example_data(db: Session):
         title="Topic 1",
         content="Content of topic 1",
         user_id=user1.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         view_count=10,
         is_locked=False
     )
@@ -39,7 +39,7 @@ def add_example_data(db: Session):
         title="Topic 2",
         content="Content of topic 2",
         user_id=user2.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         view_count=20,
         is_locked=False
     )
@@ -52,13 +52,13 @@ def add_example_data(db: Session):
         content="Comment 1 on topic 1",
         topic_id=topic1.id,
         user_id=user2.id,
-        created_at=datetime.now(timezone.utc)
+        created_at=datetime.now(timezone.now)
     )
     comment2 = Comment(
         content="Comment 2 on topic 2",
         topic_id=topic2.id,
         user_id=user1.id,
-        created_at=datetime.now(timezone.utc)
+        created_at=datetime.now(timezone.now)
     )
     db.add(comment1)
     db.add(comment2)
@@ -69,7 +69,7 @@ def add_example_data(db: Session):
         user_id=user1.id,
         content="Notification 1 for user1",
         is_read=False,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         notification_type="comment",
         reference_id=comment1.id
     )
@@ -77,7 +77,7 @@ def add_example_data(db: Session):
         user_id=user2.id,
         content="Notification 2 for user2",
         is_read=False,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(timezone.now),
         notification_type="comment",
         reference_id=comment2.id
     )
@@ -89,13 +89,13 @@ def add_example_data(db: Session):
     subscription1 = UserTopicSubscription(
         user_id=user1.id,
         topic_id=topic2.id,
-        subscribed_at=datetime.now(timezone.utc),
+        subscribed_at=datetime.now(timezone.now),
         notification_preference="all"
     )
     subscription2 = UserTopicSubscription(
         user_id=user2.id,
         topic_id=topic1.id,
-        subscribed_at=datetime.now(timezone.utc),
+        subscribed_at=datetime.now(timezone.now),
         notification_preference="mentions"
     )
     db.add(subscription1)

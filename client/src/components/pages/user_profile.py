@@ -1,4 +1,5 @@
 import streamlit as st
+
 def user_profile():
     """Display and edit user profile"""
     st.header("My Profile")
@@ -55,3 +56,20 @@ def user_profile():
                     st.success("Password changed successfully!")
                 else:
                     st.error("Failed to change password. Please check your current password.")
+
+        # Delete user section
+        st.markdown("### Delete Account")
+        st.warning("This action cannot be undone. Deleting your account will permanently remove all your data.")
+        if st.checkbox("I understand the consequences of deleting my account"):
+            confirm = st.text_input("Type 'DELETE' to confirm", value="")
+            if confirm == "DELETE":
+                if st.button("Delete My Account"):
+                    success = st.session_state.api_client.delete_user()
+                    if success:
+                        # Redirect to login page after account deletion
+                        st.session_state.page = 'login'
+                        st.rerun()  # Rerun the app to reflect the logged-out state
+                    else:
+                        st.error("Failed to delete your account. Please try again.")
+            else:
+                st.error("You must type 'DELETE' to confirm account deletion.")

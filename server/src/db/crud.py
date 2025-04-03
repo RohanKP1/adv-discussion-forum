@@ -34,5 +34,6 @@ def update_user_password(db: Session, user_id: int, password: str):
 
 def delete_user(db: Session, user_id: int):
     db_user = db.query(User).filter(User.id == user_id).first()
-    db.delete(db_user)
-    db.commit()
+    if db_user:
+        db.delete(db_user)
+        db.commit()

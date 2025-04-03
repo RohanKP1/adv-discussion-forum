@@ -63,7 +63,7 @@ def _compute_trending_topics(user, time_window, max_topics):
     
     try:
         # Calculate the date threshold for the time window
-        time_threshold = datetime.utcnow() - timedelta(days=time_window)
+        time_threshold = datetime.now() - timedelta(days=time_window)
         
         # Subquery to get comment counts for each topic within the time window
         recent_comment_counts = (
@@ -99,7 +99,7 @@ def _compute_trending_topics(user, time_window, max_topics):
             # Scoring logic
             recent_comment_weight = recent_comments or 0
             total_comment_weight = total_comments or 0
-            recency_weight = max(0, 1 - (datetime.utcnow() - topic.created_at).days / time_window)
+            recency_weight = max(0, 1 - (datetime.now() - topic.created_at).days / time_window)
             
             # Trending score calculation
             trending_score = (
@@ -205,6 +205,18 @@ class Query:
             return comments
         finally:
             db.close()
+
+    @strawberry.field
+    def get_comments_by_user_id(self, user_id: int, info) -> list[CommentType]:
+        """
+        Retrieve all comments made by a specific user.
+        """
+        db = next(get_db())
+        try:
+            comments = db.query(Comment).filter_by(user_id=user_id).all()
+            return comments
+        finally:
+            db.close()        
         
     @strawberry.field
     def get_trending_topics(self, 
@@ -371,7 +383,7 @@ class Mutation:
                 create_notification(
                     db, 
                     user_id=topic.user_id,  # Notify the topic creator
-                    content=f"New comment on your topic: {topic.title}", 
+                    content=f"New comment on your topic: {topic.title} created by {user.username}", 
                     notification_type="comment_created",
                     reference_id=comment.id
                 )
@@ -397,6 +409,7 @@ class Mutation:
             comment = db.query(Comment).filter_by(id=comment_id, user_id=user.id).first()
             if comment:
                 db.delete(comment)
+                db.commit()
                 return True
             return False
 

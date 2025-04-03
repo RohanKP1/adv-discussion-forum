@@ -1,9 +1,10 @@
-# filepath: c:\Users\rohan_m\Documents\Month_2\ver2\src\api\login.py
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from server.src.db.session import get_db
 from server.src.db import crud
+from server.src.rabbitmq.notification import remove_user_notifications
+from server.src.redis.cleanup import clear_user_cache
 from server.src.utils.security import verify_password, create_access_token, decode_access_token
 from server.src.api.schemas import UserCreate, UserUpdate, UserResponse, Token
 from server.src.rabbitmq.rmq import publish_message
@@ -58,6 +59,13 @@ def update_user_me(user_update: UserUpdate, db: Session = Depends(get_db), curre
 
 @app.delete("/users/me", response_model=UserResponse)
 def delete_user_me(db: Session = Depends(get_db), current_user: UserResponse = Depends(get_current_user)):
+    # Remove user-related data from RabbitMQ
+    remove_user_notifications(db, current_user.id)
+    
+    # Clear user-related cache from Redis
+    clear_user_cache(current_user.id)
+    
+    # Delete the user and all related data
     crud.delete_user(db=db, user_id=current_user.id)
     return current_user
 
