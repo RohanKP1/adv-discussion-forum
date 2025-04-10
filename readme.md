@@ -105,6 +105,51 @@ adv-discussion-forum/
    streamlit run client/app.py
    ```
 
+### REST API Endpoints
+
+| **HTTP Method** | **Endpoint**         | **Description**                                   |
+|------------------|----------------------|---------------------------------------------------|
+| `POST`          | `/api/register`      | Register a new user.                             |
+| `POST`          | `/api/token`         | Login and obtain an access token.                |
+| `GET`           | `/api/users/me`      | Retrieve the current user's profile.             |
+| `PUT`           | `/api/users/me`      | Update the current user's profile.               |
+| `PUT`           | `/api/users/me/password` | Update the current user's password.             |
+| `DELETE`        | `/api/users/me`      | Delete the current user's account.               |
+
+---
+
+### GraphQL Queries
+
+| **Query Name**             | **Description**                                      |
+|-----------------------------|------------------------------------------------------|
+| `hello(userId: Int!)`       | Greet a user by their ID.                            |
+| `getAllTopics`              | Retrieve all topics.                                 |
+| `getTopicByName(title: String!)` | Retrieve a topic by its title.                  |
+| `searchTopics(prefix: String!)`  | Search for topics by a prefix.                  |
+| `getTopicsByUser`           | Retrieve topics created by the current user.         |
+| `getCommentsByTopicId(topicId: Int!)` | Retrieve comments for a specific topic.     |
+| `getCommentsByUserId(userId: Int!)`  | Retrieve comments made by a specific user.   |
+| `getTrendingTopics(timeWindow: Int, maxTopics: Int)` | Retrieve trending topics.   |
+| `getUserNotifications`      | Retrieve notifications for the current user.         |
+
+---
+
+### GraphQL Mutations
+
+| **Mutation Name**           | **Description**                                      |
+|-----------------------------|------------------------------------------------------|
+| `createTopic(title: String!, content: String!, isLocked: Boolean!)` | Create a new topic. |
+| `updateTopic(topicId: Int!, title: String!, content: String!)` | Update an existing topic. |
+| `deleteTopic(topicId: Int!)` | Delete a topic.                                      |
+| `createComment(topicId: Int!, content: String!)` | Create a new comment on a topic. |
+| `updateComment(commentId: Int!, content: String!)` | Update an existing comment.     |
+| `deleteComment(commentId: Int!)` | Delete a comment.                              |
+| `markNotificationRead(notificationId: Int!)` | Mark a specific notification as read. |
+| `markAllNotificationsRead`  | Mark all notifications as read.                      |
+
+---
+ 
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any proposed changes.
