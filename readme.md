@@ -107,6 +107,7 @@ adv-discussion-forum/
 
 ### REST API Endpoints
 
+
 | **HTTP Method** | **Endpoint**         | **Description**                                   |
 |------------------|----------------------|---------------------------------------------------|
 | `POST`          | `/api/register`      | Register a new user.                             |
@@ -147,7 +148,12 @@ adv-discussion-forum/
 | `markNotificationRead(notificationId: Int!)` | Mark a specific notification as read. |
 | `markAllNotificationsRead`  | Mark all notifications as read.                      |
 
----
+
+## Testing
+
+```
+pytest
+```
  
 
 ## Contributing
