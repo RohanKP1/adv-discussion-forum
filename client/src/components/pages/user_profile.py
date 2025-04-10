@@ -14,6 +14,8 @@ def user_profile():
         with col1:
             if avatar_url:
                 st.image(avatar_url, caption="Avatar", width=150)
+            else:
+                st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4qF89QFrxokl2ukHObBwvc9TgnwHjZeypA&s", caption="No Avatar", width=150)    
         with col2:
             st.markdown(f"**Username:** {profile.get('username')}")
             st.markdown(f"**Email:** {profile.get('email')}")
