@@ -13,7 +13,11 @@ def user_profile():
         col1, col2 = st.columns([1, 3])
         with col1:
             if avatar_url:
-                st.image(avatar_url, caption="Avatar", width=150)
+                try:
+                    st.image(avatar_url, caption="Avatar", width=150)
+                except Exception as e:
+                    st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4qF89QFrxokl2ukHObBwvc9TgnwHjZeypA&s", caption="No Avatar", width=150)
+                    st.error(f"Error loading image: {e}, use valid URL")    
             else:
                 st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4qF89QFrxokl2ukHObBwvc9TgnwHjZeypA&s", caption="No Avatar", width=150)    
         with col2:

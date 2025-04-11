@@ -18,8 +18,19 @@ def notifications():
             filtered_notifications = [n for n in notifications if n['isRead']]
 
         if filtered_notifications:
-            for notification in filtered_notifications:
+            # Initialize session state for pagination
+            if "notification_limit" not in st.session_state:
+                st.session_state.notification_limit = 5
+
+            # Display notifications up to the current limit
+            for notification in filtered_notifications[:st.session_state.notification_limit]:
                 st.info(f"{notification['content']} at {notification['createdAt']}")
+
+            # Show "Show More" button if there are more notifications to display
+            if len(filtered_notifications) > st.session_state.notification_limit:
+                if st.button("Show More", use_container_width=True):
+                    st.session_state.notification_limit += 5
+                    st.rerun()  # Refresh the page to load more notifications
 
             if view_option == "Unread":
                 # Add a button to clear notifications

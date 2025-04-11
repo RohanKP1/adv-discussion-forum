@@ -11,7 +11,7 @@ from server.src.db.session import get_db
 from server.src.api.login import get_current_user  
 from server.src.utils.tries import Trie
 from server.src.rabbitmq.notification import create_notification
-from server.src.redis.connector import get_redis_connection
+from server.src.caching.connector import get_redis_connection
 
 topic_trie = Trie()
 

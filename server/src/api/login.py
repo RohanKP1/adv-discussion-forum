@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from server.src.db.session import get_db
 from server.src.db import crud
 from server.src.rabbitmq.notification import remove_user_notifications
-from server.src.redis.cleanup import clear_user_cache
+from server.src.caching.cleanup import clear_user_cache
 from server.src.utils.security import verify_password, create_access_token, decode_access_token
 from server.src.api.schemas import UserCreate, UserUpdate, UserResponse, Token
 from server.src.rabbitmq.rmq import publish_message

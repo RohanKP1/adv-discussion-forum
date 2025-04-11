@@ -1,4 +1,4 @@
-from server.src.redis.connector import get_redis_connection
+from server.src.caching.connector import get_redis_connection
 
 def clear_user_cache(user_id: int):
     """
