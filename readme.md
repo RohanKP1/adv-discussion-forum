@@ -55,7 +55,7 @@ adv-discussion-forum/
 │   │   │   ├── rmq.py                  # RabbitMQ connection and utilities
 │   │   │   ├── notification.py         # Notification handling
 │   │   │   ╰── schemas.py              # Pydantic models for RabbitMQ messages
-│   │   ├── redis/                      # Redis integration
+│   │   ├── caching/                      # Redis integration
 │   │   │   ├── connector.py            # Redis connection setup
 │   │   │   ╰── cleanup.py              # Redis cleanup utilities
 │   │   ╰── utils/                      # Utility functions
