@@ -35,18 +35,29 @@ def home_page():
     all_topics = st.session_state.graphql_client.get_all_topics()
 
     if all_topics:
-        for topic in all_topics:  # Show all topics
+        topics_to_display = 4  # Number of topics to show by default
+        if "all_topics_limit" not in st.session_state:
+            st.session_state.all_topics_limit = topics_to_display
+
+        for topic in all_topics[:st.session_state.all_topics_limit]:  # Show limited topics
             author_name = st.session_state.graphql_client.hello(user_id=topic['userId'])
             with st.container():
                 st.markdown("### " + topic['title'])
                 st.markdown(f"**Description:** {topic['content']}")
-                created_at = datetime.strptime(topic['createdAt'], "%Y-%m-%d %H:%M:%S.%f")
-                formatted_created_at = created_at.strftime("%B %d, %Y at %I:%M %p")
+                try:
+                    created_at = datetime.strptime(topic['createdAt'], "%Y-%m-%d %H:%M:%S.%f")
+                    formatted_created_at = created_at.strftime("%B %d, %Y at %I:%M %p")
+                except ValueError:
+                    formatted_created_at = topic['createdAt']
                 st.markdown(f"**Author:** {author_name} | **Created At:** {formatted_created_at}")
 
                 # Display comments under the topic
                 display_comments(topic['id'], key=f"all_{topic['id']}_", is_locked=topic['isLocked'])
 
                 st.markdown("---")
+
+        if st.session_state.all_topics_limit < len(all_topics):
+            if st.button("Show More Topics"):
+                st.session_state.all_topics_limit += topics_to_display
     else:
         st.info("No topics found.")

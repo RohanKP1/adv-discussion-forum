@@ -31,7 +31,7 @@ def register_page():
                 
                 if result:
                     st.success("Registration successful! Please login.")
-                    time.sleep(2)
+                    time.sleep(0.5)
                     st.session_state.page = 'login'
                     st.rerun()  # Force rerun to navigate to the login page
                 else:
