@@ -73,37 +73,14 @@ adv-discussion-forum/
 ╰── .gitignore                          # Git ignore file
 ```
 
-## Installation
-
-1. Do Docker Compose:
+## Usage
    ```bash
    docker-compose up -d
    ```
 
-2. Create a Virtual Environment:
-   ```bash
-   python -m venv .venv
-   .venv/Scripts/activate
-   ```
-
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Set up the environment variables as needed (e.g., database URL, RabbitMQ settings).
-
-## Usage
-
-1. Start the FastAPI server:
-   ```bash
-   uvicorn server.main:app --reload
-   ```
-
-2. Run the Streamlit application
-   ```bash
-   streamlit run client/app.py
-   ```
+## Endpoints
+- Swagger UI: `http://localhost:8000/api/docs`
+- Streamlit Frontend: `http://localhost:8501/`
 
 ### REST API Endpoints
 
