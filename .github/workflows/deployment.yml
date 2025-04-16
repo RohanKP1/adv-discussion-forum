@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: ap-south-1b                     # Set this to your preferred AWS region, e.g., us-west-1
+  AWS_REGION: ap-south-1                     # Set this to your preferred AWS region, e.g., us-west-1
   EC2_INSTANCE_ID: i-0578f817510c83ba4        # Set this to your EC2 instance ID
   SSH_USER: debian                            # Set this to the SSH user (e.g., "ubuntu" for Ubuntu AMIs)
   APP_DIR: Project/adv-discussion-forum/      # Set this to the directory on the EC2 server where your app resides
