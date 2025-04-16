@@ -1,0 +1,69 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  AWS_REGION: ap-south-1b                     # Set this to your preferred AWS region, e.g., us-west-1
+  EC2_INSTANCE_ID: i-0578f817510c83ba4        # Set this to your EC2 instance ID
+  SSH_USER: debian                            # Set this to the SSH user (e.g., "ubuntu" for Ubuntu AMIs)
+  APP_DIR: Project/adv-discussion-forum/      # Set this to the directory on the EC2 server where your app resides
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Configure AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Get EC2 instance public IP
+      id: ec2-public-ip
+      run: |
+        # Fetch the public IP address of the EC2 instance
+        INSTANCE_ID=${{ env.EC2_INSTANCE_ID }}
+        IP_ADDRESS=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
+        echo "INSTANCE_PUBLIC_IP=${IP_ADDRESS}" >> $GITHUB_ENV
+
+    - name: Configure SSH
+      run: |
+        # Save the private SSH key from GitHub Secrets
+        echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ec2_key.pem
+        chmod 400 ec2_key.pem
+
+    - name: SSH into EC2 and Deploy
+      run: |
+        # SSH into the EC2 instance, pull the latest changes, and restart the Docker containers
+        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ env.SSH_USER }}@${{ env.INSTANCE_PUBLIC_IP }} << EOF
+          set -e
+          echo "Connecting to EC2 instance..."
+          
+          # Navigate to the application directory
+          cd ${{ env.APP_DIR }}
+          
+          # Pull the latest changes from the GitHub repository
+          echo "Pulling latest changes..."
+          git reset --hard HEAD
+          git pull origin main
+          
+          # Restart the Docker Compose application
+          echo "Starting Docker Compose application..."
+          docker-compose down
+          docker-compose up -d --build
+          
+          echo "Application deployed successfully!"
+        EOF
+      shell: bash
