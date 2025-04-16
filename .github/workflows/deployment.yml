@@ -61,8 +61,8 @@ jobs:
           
           # Restart the Docker Compose application
           echo "Starting Docker Compose application..."
-          docker-compose down
-          docker-compose up -d --build
+          sudo docker-compose down
+          sudo docker-compose up -d --build
           
           echo "Application deployed successfully!"
         EOF
